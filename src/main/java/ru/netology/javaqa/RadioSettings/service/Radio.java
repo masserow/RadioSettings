@@ -1,20 +1,37 @@
 package ru.netology.javaqa.RadioSettings.service;
 
 public class Radio {
+    private int maxVolume;
+    private int minVolume;
     private int currentVolume;
+    private final int maxRadioStation;
+    private int minRadioStation;
     private int currentRadioStation;
+
+    public Radio() {
+        this.maxVolume = 100;
+        this.minVolume = 0;
+        this.maxRadioStation = 9;
+        this.minRadioStation = 0;
+    }
+
+
+    public Radio(int size) {
+        this.maxRadioStation = size - 1;
+    }
 
 
     public int getCurrentVolume() {
         return currentVolume;
     }
 
+
     public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume < 0) {
+        if (newCurrentVolume < minVolume) {
             return;
         }
-        if (newCurrentVolume > 100) {
-            newCurrentVolume = 100;
+        if (newCurrentVolume > maxVolume) {
+            newCurrentVolume = maxVolume;
         }
         currentVolume = newCurrentVolume;
     }
@@ -23,43 +40,51 @@ public class Radio {
         return currentRadioStation;
     }
 
+    public int getMaxRadioStation() {
+        return maxRadioStation;
+    }
+
+    public int getMinRadioStation() {
+        return minRadioStation;
+    }
+
     public void setCurrentRadioStation(int newCurrentRadioStation) {
-        if (newCurrentRadioStation < 0) {
-            newCurrentRadioStation = 9;
+        if (newCurrentRadioStation < minRadioStation) {
+            newCurrentRadioStation = maxRadioStation;
         }
-        if (newCurrentRadioStation > 9) {
-            newCurrentRadioStation = 0;
+        if (newCurrentRadioStation > maxRadioStation) {
+            newCurrentRadioStation = minRadioStation;
         }
         currentRadioStation = newCurrentRadioStation;
     }
 
 
     public void increaseVolume() {
-        if (currentVolume < 100) {
-            currentVolume = currentVolume + 1;
+        if (currentVolume < maxVolume) {
+            currentVolume ++;
         }
     }
 
     public void decreaseVolume() {
-        if (currentVolume > 0) {
-            currentVolume = currentVolume - 1;
+        if (currentVolume > minVolume) {
+            currentVolume --;
         }
     }
 
 
     public void nextStation() {
-        if (currentRadioStation < 9) {
-            currentRadioStation = currentRadioStation + 1;
+        if (currentRadioStation < maxRadioStation) {
+            currentRadioStation++;
         } else {
-            currentRadioStation = 0;
+            currentRadioStation = minRadioStation;
         }
     }
 
     public void prevStation() {
-        if (currentRadioStation > 0) {
-            currentRadioStation = currentRadioStation - 1;
+        if (currentRadioStation > minRadioStation) {
+            currentRadioStation--;
         } else {
-            currentRadioStation = 9;
+            currentRadioStation = maxRadioStation;
         }
     }
 }
